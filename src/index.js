@@ -9,17 +9,16 @@ import config from './config.json';
 let app = express();
 app.server = http.createServer(app);
 
-// 3rd party middleware
+
 app.use(cors({
 	exposedHeaders: config.corsHeaders
 }));
-
-app.use(bodyParser.json({
-	limit : config.bodyLimit
-}));
-app.use(bodyParser.urlencoded({
-	extended: false, limit: config.bodyLimit
-}));
+app.use(bodyParser.json({ limit : config.bodyLimit }));
+app.use(bodyParser.urlencoded({ extended: false, limit: config.bodyLimit }));
+app.use((req, res, next) => {
+	res.header("Content-Disposition", "attachment");
+	next();
+});
 
 app.use(express.static('./public'));
 app.use('/', routes({ config }));
