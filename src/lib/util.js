@@ -6,8 +6,6 @@ export function generateHTML(postBody) {
 	let css = postBody.css || "";
 	let baseURL = postBody.baseURL || "";
 
-	if (html.substr)
-
 	if (typeof styleLinks === 'string') styleLinks = [styleLinks];
 	if (html.substr(0, 6) !== "<body>") {
 		html = `<body>${html}</body>`;
