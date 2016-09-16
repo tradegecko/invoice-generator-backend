@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({
 	extended: false, limit: config.bodyLimit
 }));
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static('./public'));
 app.use('/', routes({ config }));
 
 app.server.listen(process.env.PORT || config.port, () => {
