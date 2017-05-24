@@ -6,8 +6,11 @@ export function unauthorized(message, req, res) {
   res.status(401).json(new Error(message));
 }
 
-export function pdfGenerationError(message, req, res) {
-  res.status(500).json(new Error(message));
+export function pdfGenerationError(message, error, res) {
+  res.status(500).json({
+    message,
+    error
+  });
 }
 
 export function needMoreInfo(message, req, res) {
