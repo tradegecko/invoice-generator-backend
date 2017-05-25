@@ -1,6 +1,6 @@
 import wkhtmltopdf from 'wkhtmltopdf';
 import { generateHTML, generateFileName, getBaseURL } from '../lib/util';
-import { needMoreInfo } from './errors';
+import { needMoreInfo, pdfGenerationError } from './errors';
 
 export function validate(req, res, next) {
   if (!req.body.html) {
@@ -27,9 +27,11 @@ export function generate(req, res) {
   }, function(err, stream) {
     if (err) {
       console.log('error making pdf', err);
+      pdfGenerationError('We had an issue generating your pdf file', err, res);
+    } else {
+      res.status(200).json({
+        fileLocation: getBaseURL(req) + filename
+      });
     }
-    res.status(200).json({
-      fileLocation: getBaseURL(req) + filename
-    });
   });
 }
